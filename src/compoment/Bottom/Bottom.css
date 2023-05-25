@@ -2,7 +2,7 @@
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-  }
+}
   
 .top {
 	flex: 0;
@@ -19,4 +19,7 @@
 .bottom {
 	flex: 0;
 	border-top: solid 1px var(--adm-color-border);
+	position: fixed;
+  	bottom: 0;
+  	width: 100%;
 }

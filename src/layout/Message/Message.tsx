@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import Bottom from '../../compoment/Bottom/Bottom';
 
 const waitTime = (time: number = 100) => {

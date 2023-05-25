@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
-import { Badge, TabBar } from 'antd-mobile'
+import { TabBar } from 'antd-mobile'
 import {
   AppOutline,
   MessageOutline,
   MessageFill,
   UnorderedListOutline,
   UserOutline,
-  AddCircleOutline,
 } from 'antd-mobile-icons'
 import { useNavigate } from 'react-router-dom'
-import styles from './TabBar.less'
+import { PlusCircleFilled } from '@ant-design/icons'
+import './Bottom.css'
 
 interface IProps {
   activeKey: string
@@ -31,7 +30,7 @@ function Bottom (props: IProps) {
     },
     {
       key: '/create',
-      icon: <AddCircleOutline />
+      icon: <PlusCircleFilled style={{color: '#1677FF', fontSize: '45px', marginTop: '-10px', }}/>,
     },
     {
       key: '/message',
@@ -49,7 +48,7 @@ function Bottom (props: IProps) {
   const navigate = useNavigate()
   
   return (
-    <div className={styles.bottom}>
+    <div className='bottom'>
         <TabBar onChange={value => navigate(value)} activeKey={activeKey}>
           {tabs.map(item => (
             <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
