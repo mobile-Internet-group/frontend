@@ -3,7 +3,7 @@ import {
   AppOutline,
   MessageOutline,
   MessageFill,
-  UnorderedListOutline,
+  CompassOutline,
   UserOutline,
 } from 'antd-mobile-icons'
 import { useNavigate } from 'react-router-dom'
@@ -26,7 +26,7 @@ function Bottom (props: IProps) {
     {
       key: '/nearby',
       title: '附近',
-      icon: <UnorderedListOutline />,
+      icon: <CompassOutline />,
     },
     {
       key: '/create',

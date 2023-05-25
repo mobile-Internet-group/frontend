@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import Register from '../layout/Register/Register';
 import Message from '../layout/Message/Message';
 import Create from '../layout/Create/Create';
 import Nearby from '../layout/Nearby/Nearby';
@@ -10,13 +11,14 @@ function Pages() {
 	return (
 	  <div>
 		<Routes>
-		  <Route path="/message" element={<Message />} />
-		  <Route path="/nearby" element={<Nearby />} />
-		  <Route path="/create" element={<Create />} />
-		  <Route path="/login" element={<Login />} />
-		  <Route path="/home" element={<Home />} />
-		  <Route path="/me" element={<Me />} />
-		  <Route path='*' element={<Navigate to='/login' />} />
+			<Route path='/register' element={<Register />} />
+			<Route path="/message" element={<Message />} />
+			<Route path="/nearby" element={<Nearby />} />
+			<Route path="/create" element={<Create />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/home" element={<Home />} />
+			<Route path="/me" element={<Me />} />
+			<Route path='*' element={<Navigate to='/login' />} />
 		</Routes>
 	  </div>
 	);
