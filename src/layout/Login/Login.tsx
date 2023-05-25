@@ -19,6 +19,7 @@ import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from './logo.png'
+import axios from 'axios';
 
 type LoginType = 'phone' | 'account';
 
@@ -49,14 +50,37 @@ export default () => {
 	const [loginType, setLoginType] = useState<LoginType>('account');
 
 	const navigate = useNavigate();
-
+	
 	const onFinish = async (values:any) => {
-		await waitTime(2000);
-		Toast.show({
-			icon: 'success',
-			content: '欢迎使用',
+		let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/user/login'
+		let data = {
+			username: values.username,
+			password: values.password
+		};
+		let err_code = 0.;
+		let err_msg = '';
+		await axios.post(url, data).then(res =>{
+			err_code = res.data.code;
+			err_msg = res.data.data.error_msg;
+		}).catch(err =>{
+			Toast.show({
+				icon: 'fail',
+				content: '网络故障，请刷新后再尝试',
+			});
 		})
-    	navigate('/home')
+		if (err_code === 0) {
+			Toast.show({
+				icon: 'success',
+				content: '登录成功，欢迎使用本产品',
+			});
+			navigate('/home');
+		} else {
+			Toast.show({
+				icon: 'fail',
+				content: '用户名或密码错误！',
+			});
+			navigate('/login');
+		}
 	};
 
 	return (
@@ -106,6 +130,10 @@ export default () => {
 								required: true,
 								message: '请输入用户名!',
 							},
+							{
+								pattern: new RegExp('^(?=.*\\d).{1,9}$'),
+								message: '至少包含数字， 1~9位'
+							}
 						]}
 					/>
 					<ProFormText.Password
@@ -120,6 +148,10 @@ export default () => {
 								required: true,
 								message: '请输入密码！',
 							},
+							{
+								pattern: new RegExp('^(?=.*\\d).{6,9}$'),
+								message: '至少包含数字， 6~9位'
+							}
 						]}
 					/>
 					</>
