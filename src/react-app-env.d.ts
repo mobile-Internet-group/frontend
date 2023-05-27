@@ -11,3 +11,9 @@ declare module '*.module.less' {
 	export default classes
 	declare module '*.less'
 }
+
+declare interface Window {
+	webkitIndexedDB: any,
+	mozIndexedDB:any,
+	AMap:any,
+  }

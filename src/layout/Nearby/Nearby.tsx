@@ -1,4 +1,5 @@
 import Bottom from '../../compoment/Bottom/Bottom';
+import PMap from "../../compoment/PMap/PMap";
 
 const waitTime = (time: number = 100) => {
 	return new Promise((resolve) => {
@@ -11,7 +12,7 @@ const waitTime = (time: number = 100) => {
 function Nearby() {
 	return (
 		<div>
-			NearBy 
+			<PMap></PMap>
 			<Bottom activeKey='/nearby'/>
 		</div>
 	);
