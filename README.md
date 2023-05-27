@@ -1,6 +1,8 @@
 # Location-Based-Wall Front End
 
 ## 界面展示
+ONLY FOR PC！！！
+由于浏览器获取当前地址时要求必须访问 https 或是其他安全网站，所以本项目只在本地 PC 进行。
 
 ### 登录界面
 
