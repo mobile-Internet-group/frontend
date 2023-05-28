@@ -1,11 +1,13 @@
 import { Component } from 'react';
 import { Map } from "react-amap";
+import { Markers } from 'react-amap';
 
-class PMap extends Component {
+class PMap extends Component<any, any> {
 	geolocEvent;
 
 	constructor(props:any) {
 		super(props);
+
 		this.geolocEvent = {
 			
 			created: (mapInstance:any) => {
@@ -37,6 +39,9 @@ class PMap extends Component {
 			}
 		};
 
+		this.state = {
+			markers: props.markers
+		}
 	};
 
 	render() {
@@ -46,7 +51,13 @@ class PMap extends Component {
 					amapkey='beccac67beb8de7befaf981b6b958614'
 					zoom={14}
 					events={this.geolocEvent}
-				/>
+				>
+					<Markers markers={this.state.markers}>
+
+					</Markers>
+
+				</Map>
+				
 			</div>
 		)
 	}

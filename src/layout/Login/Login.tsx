@@ -73,7 +73,7 @@ export default () => {
 				icon: 'success',
 				content: '登录成功，欢迎使用本产品',
 			});
-			navigate('/home');
+			navigate('/nearby');
 		} else {
 			Toast.show({
 				icon: 'fail',

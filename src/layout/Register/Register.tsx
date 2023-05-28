@@ -5,14 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./Register.css"
 
-const waitTime = (time: number = 100) => {
-	return new Promise((resolve) => {
-	  setTimeout(() => {
-		resolve(true);
-	  }, time);
-	});
-};
-
 export default function () {
 	const [visible, setVisible] = useState(false)
 
@@ -49,7 +41,7 @@ export default function () {
 							icon: 'success',
 							content: '注册成功',
 						});
-						navigate('/home');
+						navigate('/nearby');
 					} else {
 						Toast.show({
 							icon: 'fail',

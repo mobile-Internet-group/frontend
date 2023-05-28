@@ -3,6 +3,7 @@
 ## 界面展示
 ONLY FOR PC！！！
 由于浏览器获取当前地址时要求必须访问 https 或是其他安全网站，所以本项目只在本地 PC 进行。
+由于高德地图 api 调用需要先实例化窗口，所以登录或注册后默认为 nearby 页面。
 
 ### 登录界面
 
@@ -55,6 +56,7 @@ want
 
 调用后端服务路径
 	1. `Get` `api/user/post`
+
 ```javascript
 give
 {
@@ -67,7 +69,7 @@ want 不需要详细内容，只展示位置
 	list[] posts{
 		post {
 			"id": "1",
-			^"title": "string",
+			"title": "string",
 			"location_x": 123.1,
 			"location_y": 123.2
 		}
@@ -77,4 +79,56 @@ want 不需要详细内容，只展示位置
 ```
 
 ### 主页
+
+![home.png](./UI/home.png)
+
+调用后端服务路径
+
+`GET` `api/user/post`
+
+```javascript
+give
+{
+	location_x: number 	// 当前位置经度，如上海 121.xxx
+	location_y: number 	// 当前位置维度，如上海 31.xxx
+	distance: number	// 与当前位置的距离
+}
+want 需要详细内容，只展示位置
+{
+	list[] posts{
+		post {
+			"id": "1",
+			"title": "string",
+            ^"content": "string",
+            ^"likes": "string",
+            ^"comment_number": 1,
+			"location_x": 123.1,
+			"location_y": 123.2
+		}
+	}
+		
+}
+```
+
+考虑到 `api` 无法区分，可以统一格式为简略格式，无多余功能
+
+```javascript
+want 不需要详细内容，只展示位置
+{
+	list[] posts{
+		post {
+			"id": "1",
+			"title": "string",
+			"location_x": 123.1,
+			"location_y": 123.2
+		}
+	}
+		
+}
+```
+
+### 帖子详情页
+
+### 创建帖子以及评论
+
 **to be continued**
