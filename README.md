@@ -6,7 +6,7 @@ ONLY FOR PC！！！
 
 ### 效果总览
 
-![demo1](.\UI\demo1.gif)
+![demo1](./UI/demo1.gif)
 
 ### 登录界面
 
