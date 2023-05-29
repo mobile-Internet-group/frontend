@@ -3,7 +3,10 @@
 ## 界面展示
 ONLY FOR PC！！！
 由于浏览器获取当前地址时要求必须访问 https 或是其他安全网站，所以本项目只在本地 PC 进行。
-由于高德地图 api 调用需要先实例化窗口，所以登录或注册后默认为 nearby 页面。
+
+### 效果总览
+
+![demo1](.\UI\demo1.gif)
 
 ### 登录界面
 
@@ -55,7 +58,7 @@ want
 ![nearby.png](./UI/nearby.png)
 
 调用后端服务路径
-	1. `Get` `api/user/post`
+	1. `Get` `api/post`
 
 ```javascript
 give
@@ -84,7 +87,7 @@ want 不需要详细内容，只展示位置
 
 调用后端服务路径
 
-`GET` `api/user/post`
+`GET` `api/post`
 
 ```javascript
 give

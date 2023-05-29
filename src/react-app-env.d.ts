@@ -16,4 +16,5 @@ declare interface Window {
 	webkitIndexedDB: any,
 	mozIndexedDB:any,
 	AMap:any,
-  }
+	username:any,
+}

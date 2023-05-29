@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Form, Input, Button, Modal, Toast } from 'antd-mobile'
 import { EyeInvisibleOutline, EyeOutline } from 'antd-mobile-icons'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./Register.css"
 
-export default function () {
+function Register() {
 	const [visible, setVisible] = useState(false)
 
 	const navigate = useNavigate()
@@ -41,7 +41,8 @@ export default function () {
 							icon: 'success',
 							content: '注册成功',
 						});
-						navigate('/nearby');
+						window.username = values.username;
+						navigate('/home');
 					} else {
 						Toast.show({
 							icon: 'fail',
@@ -144,3 +145,5 @@ export default function () {
 		</>
 	)
 }
+
+export default Register;

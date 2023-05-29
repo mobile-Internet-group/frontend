@@ -31,13 +31,6 @@ const iconStyles: CSSProperties = {
 	cursor: 'pointer',
 };
 
-const waitTime = (time: number = 100) => {
-	return new Promise((resolve) => {
-	  setTimeout(() => {
-		resolve(true);
-	  }, time);
-	});
-};
 
 const TODO = () => {
 	Modal.alert({
@@ -46,7 +39,7 @@ const TODO = () => {
 	})
 }
 
-export default () => {
+function Login() {
 	const [loginType, setLoginType] = useState<LoginType>('account');
 
 	const navigate = useNavigate();
@@ -65,7 +58,7 @@ export default () => {
 		}).catch(err =>{
 			Toast.show({
 				icon: 'fail',
-				content: '网络故障，请刷新后再尝试',
+				content: `网络故障，请刷新后再尝试。\n${err_msg}`,
 			});
 		})
 		if (err_code === 0) {
@@ -73,7 +66,8 @@ export default () => {
 				icon: 'success',
 				content: '登录成功，欢迎使用本产品',
 			});
-			navigate('/nearby');
+			window.username = values.username;
+			navigate('/home');
 		} else {
 			Toast.show({
 				icon: 'fail',
@@ -226,3 +220,5 @@ export default () => {
 		</ProConfigProvider>
 	);
 };
+
+export default Login;
