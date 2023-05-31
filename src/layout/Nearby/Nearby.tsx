@@ -5,14 +5,17 @@ import curPos from '../../utils/getCurPosition';
 import { SpinLoading } from 'antd-mobile';
 import axios from 'axios';
 
+let prePreWork = async(setV:any) => {
+	curPos(preWork, setV, 0);
+}
 
-let preWork = async (setV:any) => {
-	let [lng, lat] = curPos();
+let preWork = async (lng:any, lat:any, setV:any, setP:any) => {
 	let dis = 0.0001;
-	let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/post';
+	// let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/post';
+	let url = 'http://127.0.0.1:8000/api/post';
 	url += `?locationx=${lng}&locationy=${lat}&distance=${dis}`;
 	await axios.get(url).then(res =>{
-		let posts:any = res.data.data.posts;
+		let posts:any = res.data.results;
 		let markers = posts.map((post:any) => {
 			return ({
 				position:{
@@ -37,7 +40,7 @@ function Nearby() {
 	);
 
 	useEffect(() => {
-		preWork(setPMap);
+		prePreWork(setPMap);
 	}, []);
 
 	return (

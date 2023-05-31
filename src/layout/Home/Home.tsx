@@ -39,22 +39,17 @@ const waitTime = (time: number = 100) => {
 	});
 };
 
-// setV change compoment while setP use navigate to change page.
-let preWork = async (setV:any, setP:any) => {
-	let locat = curPos();
-	
-	await waitTime(5000);
-	let lng = window.lng;
-	let lat = window.lat;
-	console.log(lng, lat)
-	console.log(window.lng, window.lat)
+let prePreWork = async (setV:any, setP:any) => {
+	curPos(preWork, setV, setP);
+}
 
+
+// setV change compoment while setP use navigate to change page.
+let preWork = async (lng:any, lat:any, setV:any, setP:any) => {
 	let dis = 0.0001;
 	//let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/post';
 	let url = 'http://127.0.0.1:8000/api/post';
 	url += `?locationx=${lng}&locationy=${lat}&distance=${dis}`;
-	console.log(lng, lat)
-	console.log(url);
 	const options = {
 		method: 'GET',
 		headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -97,7 +92,7 @@ function Home() {
 	};
 
 	useEffect(() => {
-		preWork(setListPosts, showPost);
+		prePreWork(setListPosts, showPost);
 	}, []);
 
 	
