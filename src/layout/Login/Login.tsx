@@ -118,15 +118,15 @@ function Login() {
 							size: 'large',
 							prefix: <UserOutlined className={'prefixIcon'} />,
 						}}
-						placeholder={'用户名: admin or user'}
+						placeholder={'用户名: admin or user(clearlove7)'}
 						rules={[
 							{
 								required: true,
 								message: '请输入用户名!',
 							},
 							{
-								pattern: new RegExp('^(?=.*\\d).{1,9}$'),
-								message: '至少包含数字， 1~9位'
+								pattern: new RegExp('^(?=.*\\d).{1,13}$'),
+								message: '至少包含数字， 1~13位'
 							}
 						]}
 					/>

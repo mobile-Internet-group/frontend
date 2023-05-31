@@ -6,6 +6,7 @@ import curPos from '../../utils/getCurPosition';
 import axios from 'axios';
 
 type post = {
+	id: string,
 	locationx: number,
 	locationy: number,
 	title: string,
@@ -15,8 +16,8 @@ type post = {
 };
 
 const test_posts:post[] = [
-	{locationx:121.1, locationy:31.222, title:'Good weather', content:'Today is a good day!', likes: 26, comment_numbers: 5},
-	{locationx:121.1, locationy:31.221, title:'Peace Mood', content:'I will be better.', likes: 550, comment_numbers: 267},
+	{id:'9527', locationx:121.1, locationy:31.222, title:'Good weather', content:'Today is a good day!', likes: 26, comment_numbers: 5},
+	{id:'4396', locationx:121.1, locationy:31.221, title:'Peace Mood', content:'I will be better.', likes: 550, comment_numbers: 267},
 ];
 
 let posts:post[] = test_posts;
@@ -31,15 +32,15 @@ let preWork = async (setV:any) => {
 		let tmp = posts.map((post) =>
 			<>
 				<Space></Space>
-				<Card title={post.title} >
-					<Space direction='vertical'>
-						{post.content}
-						<Space>
-							<HeartOutline onClick={() => {alert("暂不支持该功能");}}/>{post.likes}
-							<MessageOutline />{post.comment_numbers}
+					<Card title={post.title} >
+						<Space direction='vertical'>
+							{post.content}
+							<Space>
+								<HeartOutline onClick={() => {alert("暂不支持该功能");}}/>{post.likes}
+								<MessageOutline onClick={() => {alert("暂不支持该功能");}}/>{post.comment_numbers}
+							</Space>
 						</Space>
-					</Space>
-				</Card>
+					</Card>
 			</>
 		);
 		setV(tmp);

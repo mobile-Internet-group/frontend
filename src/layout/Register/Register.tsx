@@ -81,8 +81,8 @@ function Register() {
 				rules={[
 					{ required: true },
 					{
-						pattern: new RegExp('^(?=.*\\d).{1,9}$'),
-						message: '至少包含数字， 1~9位'
+						pattern: new RegExp('^(?=.*\\d).{1,13}$'),
+						message: '至少包含数字， 1~13位'
 					},
 				]}
 			>

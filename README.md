@@ -19,12 +19,15 @@ ONLY FOR PC！！！
 ```javascript
 give
 {
-	username: string // 1~9 数字或字母
+	username: string // 1~13 数字或字母
 	password: string // 6~9 数字或字母
 }
 want
 {
-	tag: success or fail
+	// tag: success or fail 
+	"code": 0,
+	"error_msg": "string",
+	"data": {}
 }
 ```
 
@@ -39,12 +42,17 @@ want
 ```javascript
 give
 {
-	username: string // 1~9 数字或字母
+	username: string // 1~13 数字或字母
 	password: string // 6~9 数字或字母
 }
 want
 {
-	tag: success or fail
+	// tag: success or fail
+	"code": 0,
+	"error_msg": "string",
+	"data": {
+		"username": "string"
+	}
 }
 ```
 
@@ -57,12 +65,15 @@ want
 ### 附近的帖子
 ![nearby.png](./UI/nearby.png)
 
+需要当前位置附近的帖子
+
 调用后端服务路径
 	1. `Get` `api/post`
 
 ```javascript
 give
-{
+{	
+	// different from swagger website
 	location_x: number 	// 当前位置经度，如上海 121.xxx
 	location_y: number 	// 当前位置维度，如上海 31.xxx
 	distance: number	// 与当前位置的距离
