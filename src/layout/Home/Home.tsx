@@ -1,43 +1,63 @@
 import Bottom from '../../compoment/Bottom/Bottom';
 import { useState, useEffect } from 'react';
-import { Card, Space, NavBar, SpinLoading } from 'antd-mobile';
+import { Card, Space, NavBar, SpinLoading, Modal,  } from 'antd-mobile';
 import { HeartOutline, MessageOutline } from 'antd-mobile-icons';
 import curPos from '../../utils/getCurPosition';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+const TODO = () => {
+	Modal.alert({
+		content: '暂不支持该功能',
+		closeOnMaskClick: true,
+	})
+}
 
 type post = {
 	id: string,
 	locationx: number,
 	locationy: number,
 	title: string,
-	content: string,
+	text: string,
 	likes: number,
 	comment_numbers: number,
+	media_url: string,
 };
 
 const test_posts:post[] = [
-	{id:'9527', locationx:121.1, locationy:31.222, title:'Good weather', content:'Today is a good day!', likes: 26, comment_numbers: 5},
-	{id:'4396', locationx:121.1, locationy:31.221, title:'Peace Mood', content:'I will be better.', likes: 550, comment_numbers: 267},
+	{id:'9527', locationx:121.1, locationy:31.222, title:'Good weather', text:'Today is a good day!', likes: 26, comment_numbers: 5, media_url: 'http:/aaa'},
+	{id:'4396', locationx:121.1, locationy:31.221, title:'Peace Mood', text:'I will be better.', likes: 550, comment_numbers: 267, media_url: 'http:/aaa'},
 ];
 
 let posts:post[] = test_posts;
 
-let preWork = async (setV:any) => {
-	let [lng, lat] = curPos();
+// setV change compoment while setP use navigate to change page.
+let preWork = async (setV:any, setP:any) => {
+	let lng, lat;
+	await setTimeout(() => {
+		[lng, lat] = curPos();
+	}, 5000);
 	let dis = 0.0001;
-	let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/post';
+	//let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/post';
+	let url = 'http://127.0.0.1:8000/api/user/post';
 	url += `?locationx=${lng}&locationy=${lat}&distance=${dis}`;
-	await axios.get(url).then(res =>{
+	console.log(url);
+	const options = {
+		method: 'GET',
+		headers: { 'content-type': 'application/x-www-form-urlencoded' },
+		url,
+	};
+	await axios(options).then(res =>{
 		posts = res.data.data.posts;
 		let tmp = posts.map((post) =>
 			<>
 				<Space></Space>
-					<Card title={post.title} >
+					<Card title={post.title} onClick={() => {setP(post.id)}}>
 						<Space direction='vertical'>
-							{post.content}
+							{post.text}
 							<Space>
-								<HeartOutline onClick={() => {alert("暂不支持该功能");}}/>{post.likes}
-								<MessageOutline onClick={() => {alert("暂不支持该功能");}}/>{post.comment_numbers}
+								<HeartOutline onClick={TODO}/>{post.likes}
+								<MessageOutline onClick={TODO}/>{post.comment_numbers}
 							</Space>
 						</Space>
 					</Card>
@@ -49,6 +69,7 @@ let preWork = async (setV:any) => {
 
 // 显示周围的帖子 latitude 维度 longitude 经度
 function Home() {
+	const navigate = useNavigate();
 
 	const [listPosts, setListPosts]:any= useState(
 		<SpinLoading  
@@ -57,10 +78,17 @@ function Home() {
 		/>
 	);
 
+	const showPost = (id:string) => {
+		console.log(id);
+		navigate(`/post/${id}`);
+	};
+
 	useEffect(() => {
-		preWork(setListPosts);
+		preWork(setListPosts, showPost);
 	}, []);
 
+	
+	
 	return (
 		<div>
 			<NavBar backArrow={false} style={{background:'linear-gradient(to left, #58ACFA, #1677FF)', color:'white'}}>主页</NavBar>

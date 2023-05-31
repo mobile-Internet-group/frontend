@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
+import PostDetail from '../layout/Detail/PostDetail';
 import Register from '../layout/Register/Register';
 import Message from '../layout/Message/Message';
 import Create from '../layout/Create/Create';
@@ -11,6 +12,7 @@ function Pages() {
 	return (
 	  <div>
 		<Routes>
+			<Route path='/post/:id' element={<PostDetail />} />
 			<Route path='/register' element={<Register />} />
 			<Route path="/message" element={<Message />} />
 			<Route path="/nearby" element={<Nearby />} />

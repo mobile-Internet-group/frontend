@@ -20,35 +20,43 @@ function Register() {
 						content: '请确认两次输入的密码一致',
 					});
 				} else {
-					let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/user/register'
+					// let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/user/register'
+					let url = 'http://127.0.0.1:8000/api/user/register';
 					let data = {
 						username: values.username,
 						password: values.password
 					};
-					let err_code = 0.;
+					const options = {
+						method: 'POST',
+						headers: { 'content-type': 'application/x-www-form-urlencoded' },
+						data: data,
+						url,
+					};
+					let err_code = 1.;
 					let err_msg = '';
-					await axios.post(url, data).then(res =>{
+					await axios(options).then(res =>{
+						console.log(res.data.code);
 						err_code = res.data.code;
-						err_msg = res.data.data.error_msg;
+						if (err_code === 0) {
+							Toast.show({
+								icon: 'success',
+								content: '注册成功',
+							});
+							window.username = values.username;
+							navigate('/home');
+						} else {
+							Toast.show({
+								icon: 'fail',
+								content: err_msg,
+							});
+						}
 					}).catch(err =>{
 						Toast.show({
 							icon: 'fail',
 							content: '网络故障，请刷新后再尝试',
 						});
 					})
-					if (err_code === 0) {
-						Toast.show({
-							icon: 'success',
-							content: '注册成功',
-						});
-						window.username = values.username;
-						navigate('/home');
-					} else {
-						Toast.show({
-							icon: 'fail',
-							content: err_msg,
-						});
-					}
+					
 				}
 			},
 		});

@@ -45,36 +45,43 @@ function Login() {
 	const navigate = useNavigate();
 	
 	const onFinish = async (values:any) => {
-		let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/user/login'
+		// let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/user/login'
+		let url = 'http://127.0.0.1:8000/api/user/login';
 		let data = {
 			username: values.username,
 			password: values.password
 		};
-		let err_code = 0.;
+		const options = {
+			method: 'POST',
+			headers: { 'content-type': 'application/x-www-form-urlencoded' },
+			data: data,
+			url,
+		};
+		let err_code = 1;
 		let err_msg = '';
-		await axios.post(url, data).then(res =>{
+		await axios(options).then(res =>{
 			err_code = res.data.code;
-			err_msg = res.data.data.error_msg;
+			if (err_code === 0) {
+				Toast.show({
+					icon: 'success',
+					content: '登录成功，欢迎使用本产品',
+				});
+				window.username = values.username;
+				navigate('/home');
+			} else {
+				Toast.show({
+					icon: 'fail',
+					content: '用户名或密码错误！',
+				});
+				navigate('/login');
+			}
 		}).catch(err =>{
 			Toast.show({
 				icon: 'fail',
 				content: `网络故障，请刷新后再尝试。\n${err_msg}`,
 			});
 		})
-		if (err_code === 0) {
-			Toast.show({
-				icon: 'success',
-				content: '登录成功，欢迎使用本产品',
-			});
-			window.username = values.username;
-			navigate('/home');
-		} else {
-			Toast.show({
-				icon: 'fail',
-				content: '用户名或密码错误！',
-			});
-			navigate('/login');
-		}
+		
 	};
 
 	return (
