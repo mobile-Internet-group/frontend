@@ -31,16 +31,29 @@ const test_posts:post[] = [
 
 let posts:post[] = test_posts;
 
+const waitTime = (time: number = 100) => {
+	return new Promise((resolve) => {
+	  setTimeout(() => {
+		resolve(true);
+	  }, time);
+	});
+};
+
 // setV change compoment while setP use navigate to change page.
 let preWork = async (setV:any, setP:any) => {
-	let lng, lat;
-	await setTimeout(() => {
-		[lng, lat] = curPos();
-	}, 5000);
+	let locat = curPos();
+	
+	await waitTime(5000);
+	let lng = window.lng;
+	let lat = window.lat;
+	console.log(lng, lat)
+	console.log(window.lng, window.lat)
+
 	let dis = 0.0001;
 	//let url = 'https://948a63d0-7109-464b-8a52-f333a78488bb.mock.pstmn.io/api/post';
-	let url = 'http://127.0.0.1:8000/api/user/post';
+	let url = 'http://127.0.0.1:8000/api/post';
 	url += `?locationx=${lng}&locationy=${lat}&distance=${dis}`;
+	console.log(lng, lat)
 	console.log(url);
 	const options = {
 		method: 'GET',
@@ -48,7 +61,7 @@ let preWork = async (setV:any, setP:any) => {
 		url,
 	};
 	await axios(options).then(res =>{
-		posts = res.data.data.posts;
+		posts = res.data.results;
 		let tmp = posts.map((post) =>
 			<>
 				<Space></Space>

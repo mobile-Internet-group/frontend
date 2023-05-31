@@ -17,4 +17,6 @@ declare interface Window {
 	mozIndexedDB:any,
 	AMap:any,
 	username:any,
+	lat:any,
+	lng:any;
 }
