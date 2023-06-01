@@ -1,8 +1,7 @@
-import Bottom from '../../compoment/Bottom/Bottom';
 import { NavBar, Space, TextArea, Button, Toast } from 'antd-mobile';
 import { useState } from 'react';
 import curPos from '../../utils/getCurPosition';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const waitTime = (time: number = 100) => {
@@ -15,8 +14,7 @@ const waitTime = (time: number = 100) => {
 
 
 
-function Create() {
-	
+function CreateComment() {
 	const [title, setTitle] = useState('');
 	const [text, setText] = useState('');
 
@@ -27,19 +25,19 @@ function Create() {
 	}
 
 	const doWork = (title:any, text:any) => {
-		curPos(sendMsg, title, text);
+		sendMsg(title, text);
 	}
+
+	let postid = useParams().id;
 	
-	const sendMsg = async (lng:any, lat:any, title:any, text:any) => {
-		let url = 'http://127.0.0.1:8000/api/post';
+	const sendMsg = async (title:any, text:any) => {
+		let url = 'http://127.0.0.1:8000/api/comment';
+		url += `/${postid}`
 		let data ={
-			username: window.username,
-			title: title,
+			postid: postid,
 			text : text,
 			content_type: 0,
-			media_url: `http://${title}`,
-			location_x: lng,
-			location_y: lat
+			media_url: `http://${postid}/${text}`,
 		}
 		const options = {
 			method: 'POST',
@@ -52,15 +50,15 @@ function Create() {
 			if (error_code === 0) {
 				Toast.show({
 					icon: 'success',
-					content: '发帖成功',
+					content: '评论成功',
 				});
-				navigate('/home');
+				navigate(`/post/${postid}`);
 			} else {
 				Toast.show({
 					icon: 'fail',
-					content: '发帖失败！',
+					content: '评论失败！',
 				});
-				navigate('/create');
+				navigate(`/comment/create/${postid}`);
 			}
 		}).catch(err =>{
 			Toast.show({
@@ -70,32 +68,19 @@ function Create() {
 		})
 	}
 
+	const back = () => {
+		navigate(`/post/${postid}`);
+	}
+
 	return (
 		<div>
-			<NavBar backArrow={false} style={{background:'linear-gradient(to left, #58ACFA, #1677FF)', color:'white'}}>
-				创建新帖
+			<NavBar back='返回' onBack={back} style={{background:'linear-gradient(to left, #58ACFA, #1677FF)', color:'white'}}>
+				创建评论
 			</NavBar>
-			<div  style={{background: 'rgb(240,240,240)', width: '100%', height:'85%', position: 'absolute'}}>
+			<div  style={{background: 'rgb(240,240,240)', width: '100%', height:'93%', position: 'absolute'}}>
 				<Space direction='vertical' style={{width:'90%', margin: 'auto'}} block>
 					<Space />
-					<TextArea
-						placeholder='请输入标题'
-						value={title}
-						onChange={val => {
-							setTitle(val);
-						}}
-						autoSize
-						maxLength={20}
-						rows={1}
-						style={{
-							padding:'12px',
-							background:'white',
-							borderRadius:'20px',
-							width:'94%',
-							'--color': 'blue',
-							'--font-size': '22px',
-						}}
-					/>
+
 					<TextArea
 						placeholder='请输入内容'
 						value={text}
@@ -125,9 +110,8 @@ function Create() {
          			</Button>
 				</Space>
 			</div>
-			<Bottom activeKey='/create'/>
 		</div>
 	);
 }
 
-export default Create;
+export default CreateComment;

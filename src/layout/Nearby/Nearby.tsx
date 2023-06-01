@@ -1,6 +1,7 @@
 import Bottom from '../../compoment/Bottom/Bottom';
 import { useState, useEffect } from 'react';
 import PMap from "../../compoment/PMap/PMap";
+import { useNavigate } from 'react-router-dom';
 import curPos from '../../utils/getCurPosition';
 import { SpinLoading } from 'antd-mobile';
 import axios from 'axios';
@@ -31,6 +32,12 @@ let preWork = async (lng:any, lat:any, setV:any, setP:any) => {
 }
 
 function Nearby() {
+
+	const navigate = useNavigate();
+
+	if (typeof(window.username) == "undefined") {
+		navigate('/login');
+	}
 
 	const [pMap, setPMap]:any= useState(
 		<SpinLoading  

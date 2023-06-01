@@ -6,7 +6,7 @@ ONLY FOR PC！！！
 
 ### 效果总览
 
-![demo1](./UI/demo1.gif)
+![demo2](./UI/demo2.gif)
 
 ### 登录界面
 
@@ -26,8 +26,6 @@ want
 {
 	// tag: success or fail 
 	"code": 0,
-	"error_msg": "string",
-	"data": {}
 }
 ```
 
@@ -49,10 +47,6 @@ want
 {
 	// tag: success or fail
 	"code": 0,
-	"error_msg": "string",
-	"data": {
-		"username": "string"
-	}
 }
 ```
 
@@ -80,12 +74,15 @@ give
 }
 want 不需要详细内容，只展示位置
 {
-	list[] posts{
-		post {
+	list[] results{
+		{
 			"id": "1",
-			"title": "string",
-			"location_x": 123.1,
-			"location_y": 123.2
+			'title': post.title,
+			'content_type': post.content_type,
+			'text': post.text,
+			'media_url': post.media_url,
+			'location_x': post.location_x,
+			'location_y': post.location_y
 		}
 	}
 		
@@ -100,6 +97,8 @@ want 不需要详细内容，只展示位置
 
 `GET` `api/post`
 
+需要标题内容和位置
+
 ```javascript
 give
 {
@@ -107,42 +106,41 @@ give
 	location_y: number 	// 当前位置维度，如上海 31.xxx
 	distance: number	// 与当前位置的距离
 }
-want 需要详细内容，只展示位置
+want
 {
-	list[] posts{
-		post {
+	list[] results{
+		{
 			"id": "1",
-			"title": "string",
-            ^"content": "string",
-            ^"likes": "string",
-            ^"comment_number": 1,
-			"location_x": 123.1,
-			"location_y": 123.2
+			'title': post.title,
+			'content_type': post.content_type,
+			'text': post.text,
+			'media_url': post.media_url,
+			'location_x': post.location_x,
+			'location_y': post.location_y
 		}
 	}
 		
 }
-```
 
-考虑到 `api` 无法区分，可以统一格式为简略格式，无多余功能
-
-```javascript
-want 不需要详细内容，只展示位置
-{
-	list[] posts{
-		post {
-			"id": "1",
-			"title": "string",
-			"location_x": 123.1,
-			"location_y": 123.2
-		}
-	}
-		
-}
 ```
 
 ### 帖子详情页
+![post_detail.png](./UI/post_detail.png)
+
+调用后端服务路径
+
+`GET` `api/post/${postid}`
+
+`GET` `api/comment/${postid}`
 
 ### 创建帖子以及评论
+![create.png](./UI/create.png)
 
+调用后端服务路径
+
+`POST` `api/post/`
+
+![create.png](./UI/create_comment.png)
+
+`POST` `api/comment/${postid}`
 **to be continued**

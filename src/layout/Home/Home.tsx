@@ -14,7 +14,7 @@ const TODO = () => {
 }
 
 type post = {
-	id: string,
+	postid: string,
 	locationx: number,
 	locationy: number,
 	title: string,
@@ -25,8 +25,8 @@ type post = {
 };
 
 const test_posts:post[] = [
-	{id:'9527', locationx:121.1, locationy:31.222, title:'Good weather', text:'Today is a good day!', likes: 26, comment_numbers: 5, media_url: 'http:/aaa'},
-	{id:'4396', locationx:121.1, locationy:31.221, title:'Peace Mood', text:'I will be better.', likes: 550, comment_numbers: 267, media_url: 'http:/aaa'},
+	{postid:'9527', locationx:121.1, locationy:31.222, title:'Good weather', text:'Today is a good day!', likes: 26, comment_numbers: 5, media_url: 'http:/aaa'},
+	{postid:'4396', locationx:121.1, locationy:31.221, title:'Peace Mood', text:'I will be better.', likes: 550, comment_numbers: 267, media_url: 'http:/aaa'},
 ];
 
 let posts:post[] = test_posts;
@@ -60,7 +60,7 @@ let preWork = async (lng:any, lat:any, setV:any, setP:any) => {
 		let tmp = posts.map((post) =>
 			<>
 				<Space></Space>
-					<Card title={post.title} onClick={() => {setP(post.id)}}>
+					<Card title={post.title} onClick={() => {setP(post.postid)}}>
 						<Space direction='vertical'>
 							{post.text}
 							<Space>
@@ -78,6 +78,10 @@ let preWork = async (lng:any, lat:any, setV:any, setP:any) => {
 // 显示周围的帖子 latitude 维度 longitude 经度
 function Home() {
 	const navigate = useNavigate();
+
+	if (typeof(window.username) == "undefined") {
+		navigate('/login');
+	}
 
 	const [listPosts, setListPosts]:any= useState(
 		<SpinLoading  

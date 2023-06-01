@@ -22,6 +22,10 @@ function Me() {
 
 	const navigate = useNavigate()
 
+	if (typeof(window.username) == "undefined") {
+		navigate('/login');
+	}
+
 	return (
 		<div>
 			<NavBar backArrow={false} style={{background:'linear-gradient(to left, #58ACFA, #1677FF)', color:'white'}}>个人主页</NavBar>
