@@ -84,6 +84,10 @@ function Login() {
 		
 	};
 
+	const goToRegister = () => {
+		navigate('/register');
+	};
+
 	return (
 		
 		<ProConfigProvider hashed={false}>
@@ -104,7 +108,7 @@ function Login() {
 							</Space>
 
 							<div style={{float: 'right'}}>
-								或者 <a href="register">现在注册!</a>
+								或者 <a onClick={goToRegister}>现在注册!</a>
 							</div>
 						</div>
 					}
